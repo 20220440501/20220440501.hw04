@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>序列动画0501</title>
+    <style>
+        /* CSS样式 */
+        body {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- HTML结构 -->
+    <img id="alice1" src="alice.svg" alt="Alice 1">
+    <img id="alice2" src="alice.svg" alt="Alice 2">
+    <img id="alice3" src="alice.svg" alt="Alice 3">
+
+    <script>
+        // JavaScript代码
+        // 定义动画的关键帧和时序
+        const aliceTumbling = [
+            { transform: "rotate(0) scale(1)" },
+            { transform: "rotate(360deg) scale(0)" }
+        ];
+        const aliceTiming = {
+            duration: 2000,
+            iterations: 1,
+            fill: "forwards"
+        };
+
+        // 选择图片元素
+        const alice1 = document.querySelector("#alice1");
+        const alice2 = document.querySelector("#alice2");
+        const alice3 = document.querySelector("#alice3");
+
+        // 定义一个函数来按顺序播放动画
+        function playAnimations() {
+            alice1.animate(aliceTumbling, aliceTiming).finished
+                .then(() => alice2.animate(aliceTumbling, aliceTiming).finished)
+                .then(() => alice3.animate(aliceTumbling, aliceTiming).finished)
+                .catch(error => console.error(error));
+        }
+
+        // 页面加载完成后开始动画
+        window.addEventListener('load', playAnimations);
+    </script>
+</body>
+</html>
